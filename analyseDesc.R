@@ -20,3 +20,8 @@ plot(resACP,choice="cor")
 #on voit que lateralisation hemispherique opposé à l'aire rolandic donc anticorrelés
 #"prod_G_angular" droite et gauche fortement corrélés
 plot(resACP,choice="ind") #j'arrive pas à nommer les points
+
+#deuxième test sans succès
+res<-PCAmix(X.quanti = donnees_cop1[,1:16], graph=TRUE)
+round(res$eig, digit=2)
+plot(res,choice="ind")
