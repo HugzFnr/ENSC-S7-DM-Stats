@@ -19,6 +19,18 @@ x14=donnees$Prod_S_Sup_Temporal_4_L
 
 y=donnees$Prod_G_Frontal_Inf_Tri_1_L
 
-#pas à pas ascendant
+
 res <-lm(y ~ x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13+x14)
 summary(res)
+
+par(mfrow=c(1,2))
+plot(res$fitted,res$residuals)
+abline(h=0,col=2)
+plot(res$fitted,y)
+abline(0,1,col=2)
+
+shapiro.test(res$residuals)
+#p-value<5% donc non rejet de H0
+
+drop1(res)
+add1(res,y~x1)
