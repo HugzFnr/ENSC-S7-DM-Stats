@@ -7,6 +7,7 @@ plot(donnees_cop)
 
 install.packages("corrplot")
 library("corrplot")
+cor(donnees_cop)
 corrplot(cor(donnees_cop))
 
 #Il semberait que Prod_G_Frontal_Inf_Tri_1_L soit corrélés avecProd_G_Frontal_Inf_Tri_1_R et Prod_S_Sup_Temporal_4_L
