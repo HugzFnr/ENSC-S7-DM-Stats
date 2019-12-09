@@ -23,6 +23,7 @@ y=donnees$Prod_G_Frontal_Inf_Tri_1_L
 res <-lm(y ~ x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13+x14)
 summary(res)
 
+#√©tude des r√©sidus
 par(mfrow=c(1,2))
 plot(res$fitted,res$residuals)
 abline(h=0,col=2)
@@ -30,15 +31,15 @@ plot(res$fitted,y)
 abline(0,1,col=2)
 
 shapiro.test(res$residuals)
-#p-value<5% donc non rejet de H0
+#p-value>5% donc normalit√© des r√©sidus
 
 drop1(res)
 add1(res,y~x1)
 
-#Fonction step : pas ‡ pas descendant (par)
+#Fonction step : pas ? pas descendant (par)
 step(res, ~  x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13+x14, trace = FALSE)
 
-#Fonction step : pas ‡ pas ascendant
+#Fonction step : pas ? pas ascendant
 res2 <- lm(y~ 1, data=donnees)
 step(res2,  ~ x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13+x14)
 
@@ -67,6 +68,16 @@ drop1(res)
 
 #modele a -553.06, enlever d'autres valeurs ne le minimiserait pas
 
+#√©tude des r√©sidus
+par(mfrow=c(1,2))
+plot(res$fitted,res$residuals)
+abline(h=0,col=2)
+plot(res$fitted,y)
+abline(0,1,col=2)
+shapiro.test(res$residuals)
+
+
+summary(res)
 
 #a la main ascendant :
 
@@ -115,10 +126,11 @@ add1(res, ~x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13 +x14)
 res <-lm(y ~ x14 +x10 + x12 +x4 + x3 +x13 + x8 + x6 + x7)
 add1(res, ~x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13 +x14)
 #ajout de x5 (-553.06)
-
+summary(res)
 
 res <-lm(y ~ x14 +x10 + x12 +x4 + x3 +x13 + x8 + x6 + x7 + x5)
 add1(res, ~x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13 +x14)
+summary(res)
 
 
 
@@ -146,13 +158,24 @@ x14F=Sexe_F$Prod_S_Sup_Temporal_4_L
 
 
 
-#Fonction step : pas ‡ pas descendant (par)
+#Fonction step : pas ? pas descendant (par)
 resFemmeD <-lm(yF ~ x1F+x2F+x3F+x4F+x5F+x6F+x7F+x8F+x9F+x10F+x11F+x12F+x13F+x14F)
 step(resFemmeD , ~  x1F+x2F+x3F+x4F+x5F+x6F+x7F+x8F+x9F+x10F+x11F+x12F+x13F+x14F)
 
-#Fonction step : pas ‡ pas ascendant
+#Fonction step : pas ? pas ascendant
 resFemmeA <- lm(yF~ 1, data=Sexe_F)
 step(resFemmeA,  ~ x1F+x2F+x3F+x4F+x5F+x6F+x7F+x8F+x9F+x10F+x11F+x12F+x13F+x14F)
+
+#√©tude des r√©sidus
+res <-lm(yF ~ x3F+x4F+x8F+x10F+x13F+x14F)
+
+par(mfrow=c(1,2))
+plot(res$fitted,res$residuals)
+abline(h=0,col=2)
+plot(res$fitted,y)
+abline(0,1,col=2)
+shapiro.test(res$residuals)
+summary(res)
 
 
 #HOMME 
@@ -177,15 +200,20 @@ x14H=Sexe_H$Prod_S_Sup_Temporal_4_L
 
 
 
-#Fonction step : pas ‡ pas descendant (par)
+#Fonction step : pas ? pas descendant (par)
 resHommeD <-lm(yH ~ x1H+x2H+x3H+x4H+x5H+x6H+x7H+x8H+x9H+x10H+x11H+x12H+x13H+x14H)
 step(resHommeD , ~ x1H+x2H+x3H+x4H+x5H+x6H+x7H+x8H+x9H+x10H+x11H+x12H+x13H+x14H, trace = FALSE)
 
-#Fonction step : pas ‡ pas ascendant
+#Fonction step : pas ? pas ascendant
 resHommeA <- lm(yH~ 1, data=Sexe_H)
 step(resHommeA,  ~ x1H+x2H+x3H+x4H+x5H+x6H+x7H+x8H+x9H+x10H+x11H+x12H+x13H+x14H)
 
-
-
-
-
+#√©tude des r√©sidus
+res <-lm(yH ~ x3H+x4H+x6H+x7H+x9H+x10H+x12H+x13H+x14H)
+par(mfrow=c(1,2))
+plot(res$fitted,res$residuals)
+abline(h=0,col=2)
+plot(res$fitted,y)
+abline(0,1,col=2)
+shapiro.test(res$residuals)
+summary(res)
