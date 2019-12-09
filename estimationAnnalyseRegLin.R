@@ -132,6 +132,15 @@ res <-lm(y ~ x14 +x10 + x12 +x4 + x3 +x13 + x8 + x6 + x7 + x5)
 add1(res, ~x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13 +x14)
 summary(res)
 
+res <-lm(y ~ x14 +x10  + x12 +x4 + x3 +x13 + x8 + x6 + x7)
+#Etude des résidus du modèle affiné par l'approche computationnelle
+par(mfrow=c(1,2))
+plot(res$fitted,res$residuals)
+abline(h=0,col=2)
+plot(res$fitted,y)
+abline(0,1,col=2)
+shapiro.test(res$residuals)
+
 
 
 ########### Femme vs Homme #######
