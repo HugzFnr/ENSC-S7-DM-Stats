@@ -1,7 +1,9 @@
+#Lecture des données
 donnees<-readRDS("activation2020.rdata")
 donnees_cop<-donnees[,-c(1,2,3)]
 donnees_cop1<-donnees[,-c(2,3)]
 
+#Initialisation des variables
 x1=donnees$Age;
 x2=donnees$Volume_Cerebral
 x3=donnees$Index_Lateralisation_Hemispherique
@@ -19,13 +21,15 @@ x14=donnees$Prod_S_Sup_Temporal_4_L
 
 y=donnees$Prod_G_Frontal_Inf_Tri_1_L
 
+#Modèle complet
 M1 <-lm(y ~ x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13+x14)
 summary(res)
 
+#MSE du modèle complet
 MSE_M1 = 0.5 * sum((y-M1$fitted.values)^2)
 MSE_M1
 
-#Les 100 MSE obtenus par permutation de chacune des variables explicatives
+#Les vecteurs permettant de stocker les 100 MSE obtenus par permutation de chacune des variables explicatives
 MSE_X1 <- c()
 MSE_X2 <- c()
 MSE_X3 <- c()
@@ -41,6 +45,7 @@ MSE_X12 <- c()
 MSE_X13 <- c()
 MSE_X14 <- c()
 
+#Génération des perturbations et calculs des MSE correspondant pour chaque variable
 for (iter in 1:101)
 {
   s <- sample(x1,replace=FALSE)
@@ -143,14 +148,12 @@ for (iter in 1:101)
   m <- lm (y ~ x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13+s)
   MSE_X14 <- append(MSE_X14,0.5 * sum((y-m$fitted.values)^2),length(MSE_X14))
 }
+
+#Affichage comparatif des MSE au MSE du modèle complet
 etiquettes <- c('M1','x1','x2','x3','x4','x5','x6','x7','x8','x9','x10','x11','x12','x13','x14')
 boxplot(MSE_M1,MSE_X1,MSE_X2,MSE_X3,MSE_X4,MSE_X5,MSE_X6,MSE_X7,MSE_X8,MSE_X9,MSE_X10,MSE_X11,MSE_X12,MSE_X13,MSE_X14,names=etiquettes)
 title('Boxplots des MSE obtenus par permutations des différentes variables explicatives')
 
-variableAEvaluer = summary(MSE_X1)
-diffIQ = variableAEvaluer[5] - variableAEvaluer[2]
-diffIQ #différence interquartile
-variableAEvaluer[4] #moyenne
 
 
 
