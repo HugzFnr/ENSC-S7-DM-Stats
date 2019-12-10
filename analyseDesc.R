@@ -68,6 +68,7 @@ fviz_pca_ind (res.pca, col.ind = "cos2",
 # ####### Variable qualitatives Boxplots ##########
 varExplique <- donnees$Prod_G_Frontal_Inf_Tri_1_L
 
+#boxplot 
 par(mfrow=c(1,2))
 boxplot(varExplique~donnees$Preference_Manuelle, xlab="Pr?f?rence Manuelle", ylab="Aire de Broca", col=c("aliceblue","blanchedalmond"))
 boxplot(varExplique~donnees$Sexe, xlab="Sexe", ylab="Aire de Broca", col=c("aliceblue","blanchedalmond"))
@@ -79,7 +80,7 @@ PM_droite<-donnees[donnees$Preference_Manuelle=="D",colnames(donnees)!="Preferen
 PM_gauche<-donnees[donnees$Preference_Manuelle=="G",colnames(donnees)!="Preference_Manuelle"]
 t.test(PM_droite$Prod_G_Frontal_Inf_Tri_1_R, PM_gauche$Prod_G_Frontal_Inf_Tri_1_R)
 
-
+#séparation en fonction des sexes
 Sexe_F<-donnees[donnees$Sexe=="F",colnames(donnees)!="Sexe"]
 Sexe_H<-donnees[donnees$Sexe=="H",colnames(donnees)!="Sexe"]
 t.test(Sexe_F$Prod_G_Frontal_Inf_Tri_1_R, Sexe_H$Prod_G_Frontal_Inf_Tri_1_R)
